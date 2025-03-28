@@ -1,0 +1,49 @@
+- name: Ensure rke user exists
+  ansible.builtin.user:
+    name: rke
+    groups: docker
+    state: present
+    create_home: yes
+    shell: /bin/bash
+
+- name: Ensure rke group exists
+  ansible.builtin.group:
+    name: rke
+    state: present
+
+- name: Ensure .ssh directory exists
+  ansible.builtin.file:
+    path: /home/rke/.ssh
+    state: directory
+    owner: rke
+    group: rke
+    mode: "0700"
+
+- name: Ensure authorized_keys file exists
+  ansible.builtin.file:
+    path: /home/rke/.ssh/authorized_keys
+    state: touch
+    owner: rke
+    group: rke
+    mode: "0600"
+
+- name: Add public key to authorized_keys
+  become: yes
+  ansible.builtin.authorized_key:
+    user: rke
+    state: present
+    key: "{{ lookup('file', '/home/ubuntu/.ssh/id_rsa.pub') }}"
+
+# - name: Add public key to authorized_keys using tee
+#   become: yes
+#   ansible.builtin.shell:
+#     cmd:  "echo 'cat ~/.ssh/id_rsa.pub' | tee -a /home/rke/.ssh/authorized_keys"
+#   args:
+#     executable: /bin/bash
+
+- name: Set ownership of /home/rke recursively
+  ansible.builtin.file:
+    path: /home/rke
+    owner: rke
+    group: rke
+    recurse: yes

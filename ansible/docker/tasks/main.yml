@@ -1,0 +1,53 @@
+- name: Install dependencies ca-certificates & curl
+  ansible.builtin.apt:
+    name: 
+    - ca-certificates
+    - curl
+    state: present
+    update_cache: yes
+
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: /etc/apt/key_ings
+    state: directory
+    mode: '0755'
+
+- name: Download Docker GPG key
+  ansible.builtin.get_url:
+    url: "https://download.docker.com/linux/ubuntu/gpg"
+    dest: "/etc/apt/keyrings/docker.asc"
+    mode: "0644"
+    force: yes  # Ensures the file is updated if the remote content changes
+
+- name: Add the repository to Apt sources using tee
+  ansible.builtin.shell:
+    cmd: echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    
+
+- name: Install Docker packages
+  ansible.builtin.apt:
+    name: 
+    - docker-ce=5:24.0.9-1~ubuntu.22.04~jammy
+    - docker-ce-cli=5:24.0.9-1~ubuntu.22.04~jammy
+    - containerd.io
+    - docker-buildx-plugin
+    - docker-compose-plugin
+    state: present
+    update_cache: yes
+
+- name: Ensure group "Docker" exists
+  ansible.builtin.group:
+    name: Docker
+    state: present
+
+- name: Add the user to the group 'Docker'
+  ansible.builtin.user:
+    name: "{{ lookup('env', 'USER') }}"
+    groups: Docker
+    append: yes
+
+- name: Enable and start Docker services
+  ansible.builtin.service:
+    name: docker
+    enabled: true
+    state: restarted
