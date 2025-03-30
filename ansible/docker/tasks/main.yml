@@ -1,4 +1,4 @@
-- name: Install dependencies ca-certificates & curl
+- name: Install dependencies 
   ansible.builtin.apt:
     name: 
     - ca-certificates
@@ -8,7 +8,7 @@
 
 - name: Create a directory if it does not exist
   ansible.builtin.file:
-    path: /etc/apt/key_ings
+    path: /etc/apt/keyrings
     state: directory
     mode: '0755'
 

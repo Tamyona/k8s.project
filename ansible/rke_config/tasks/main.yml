@@ -1,0 +1,5 @@
+- name: Download RKE Kubernetes amd64
+  ansible.builtin.get_url:
+    url: "https://github.com/rancher/rke/releases/download/v1.8.1/rke_linux-amd64"
+    dest: "/usr/local/bin/rke"
+    mode: "0755"

@@ -1,4 +1,10 @@
-- hosts: all
+- hosts: bastion
+  become: yes
+  roles:
+    - docker
+    - rke_config
+
+- hosts: master,worker
   become: yes
   roles:
     - docker
