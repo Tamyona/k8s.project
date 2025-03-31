@@ -1,36 +1,33 @@
 #!/bin/bash
 
-
-function install_docker() {
-
-# Add Docker's official GPG key:
-sudo apt-get update
-sudo apt-get install ca-certificates curl
-sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
-
-# Add the repository to Apt sources:
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
-
-VERSION_STRING=5:24.0.9-1~ubuntu.22.04~jammy
-sudo apt-get install docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING containerd.io docker-buildx-plugin docker-compose-plugin -y
-# sudo usermod -aG docker $USER
+function prep_bastion() {
+  sudo apt update
+  sudo apt install ansible terraform -y
 }
 
-function create_rke_user() {
-  sudo useradd rke
-  sudo usermod -aG docker rke
-  sudo mkdir -p /home/rke/.ssh    # -p - create folder in a folder (nesting)
-  sudo touch /home/rke/.ssh/authorized_keys
-  sudo chmod 700 /home/rke/.ssh
-  sudo chmod 700 /home/rke/.ssh/authorized_keys   # best practice to have 700 permission for .ssh and authorized_keys
-  sudo chown -R rke:rke /home/rke
+function create_instances() {
+  cd terraform
+  terraform init
+  terraform apply --auto-approve
 }
 
-install_docker
-create_rke_user
+function update_ips() {
+    HOSTS_FILE="../ansible/hosts"
+    
+    echo "[master]" > "$HOSTS_FILE"
+    echo "[workers]" >> "$HOSTS_FILE"
+    echo "master ansible_host=$(terraform output -raw master_ip)" >> "$HOSTS_FILE"
+    echo "worker1 ansible_host=$(terraform output -raw worker1_ip)" >> "$HOSTS_FILE"
+    echo "worker2 ansible_host=$(terraform output -raw worker2_ip)" >> "$HOSTS_FILE"
+
+}
+
+function ansible() {
+  cd ../ansible
+  ansible-playbook main.yml -i /home/ubuntu/k8s.project/terraform/inventory.ini
+}
+
+prep_bastion
+create_instances
+update_ips
+ansible

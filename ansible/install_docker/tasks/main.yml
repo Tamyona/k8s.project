@@ -1,4 +1,4 @@
-- name: Install dependencies 
+- name: Install Docker dependencies 
   ansible.builtin.apt:
     name: 
     - ca-certificates
@@ -50,4 +50,4 @@
   ansible.builtin.service:
     name: docker
     enabled: true
-    state: restarted
+    state: started

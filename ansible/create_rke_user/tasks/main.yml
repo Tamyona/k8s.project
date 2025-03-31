@@ -34,13 +34,6 @@
     state: present
     key: "{{ lookup('file', '/home/ubuntu/.ssh/id_rsa.pub') }}"
 
-# - name: Add public key to authorized_keys using tee
-#   become: yes
-#   ansible.builtin.shell:
-#     cmd:  "echo 'cat ~/.ssh/id_rsa.pub' | tee -a /home/rke/.ssh/authorized_keys"
-#   args:
-#     executable: /bin/bash
-
 - name: Set ownership of /home/rke recursively
   ansible.builtin.file:
     path: /home/rke
