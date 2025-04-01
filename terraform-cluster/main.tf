@@ -2,7 +2,7 @@ terraform {
   required_providers {
     rke = {
       source = "rancher/rke"
-      version = "~> 2"
+      version = "~> 1.4.0"
     }
   }
 }
@@ -13,6 +13,8 @@ provider "rke" {
 
 # Create a new RKE cluster using arguments
 resource "rke_cluster" "cluster" {
+  enable_cri_dockerd = true
+  
   nodes {
     address = var.master_ip
     user    = "rke"

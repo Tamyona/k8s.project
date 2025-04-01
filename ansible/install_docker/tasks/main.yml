@@ -27,7 +27,7 @@
 - name: Install Docker packages
   ansible.builtin.apt:
     name: 
-    - docker-ce=5:24.0.9-1~ubuntu.22.04~jammy
+    - docker-ce=5:24.0.9-1~ubuntu.22.04~jammy     # lowered version from 5:24.0.9-1~ubuntu.22.04~jammy
     - docker-ce-cli=5:24.0.9-1~ubuntu.22.04~jammy
     - containerd.io
     - docker-buildx-plugin

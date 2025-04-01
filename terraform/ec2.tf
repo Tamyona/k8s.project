@@ -15,7 +15,7 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_instance" "master" {
   ami           = data.aws_ami.ubuntu.id
-  instance_type = "t2.micro"
+  instance_type = "t2.medium"
   key_name = aws_key_pair.rke_key.key_name
   security_groups = [aws_security_group.allow_tls.name]
 
@@ -26,7 +26,7 @@ resource "aws_instance" "master" {
 
 resource "aws_instance" "worker1" {
   ami           = data.aws_ami.ubuntu.id
-  instance_type = "t2.micro"
+  instance_type = "t2.medium"
   key_name = aws_key_pair.rke_key.key_name
   security_groups = [aws_security_group.allow_tls.name]
 
@@ -37,7 +37,7 @@ resource "aws_instance" "worker1" {
 
 resource "aws_instance" "worker2" {
   ami           = data.aws_ami.ubuntu.id
-  instance_type = "t2.micro"
+  instance_type = "t2.medium"
   key_name = aws_key_pair.rke_key.key_name
   security_groups = [aws_security_group.allow_tls.name]
 

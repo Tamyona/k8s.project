@@ -2,16 +2,16 @@
 # Manual edits may be lost in future updates.
 
 provider "registry.terraform.io/rancher/rke" {
-  version     = "1.7.0"
-  constraints = "~> 1.7.0"
+  version     = "1.4.4"
+  constraints = "~> 1.4.0"
   hashes = [
-    "h1:6vxFVRw05roeVy8mfDp+Y1+WHFM3tdmWJZC5eFcjHK0=",
-    "zh:4bbde2e0afc13d60586f383b6706456fb2834fd4670e5581bfe5746527f29d0c",
-    "zh:4da0795c927ad65e5ddbc4a8cbdcd3a8a032132261394ed1635cdc3e0737925c",
-    "zh:5161dc7ec219490b0bfa4466e8f00a7560d507c36a1e73d47b488ea752a968bd",
-    "zh:93de7bd543eb1f095f221a88d6e4b1c15e0a169239c461c597b9736e95f07730",
-    "zh:cb3ae141cf2b8b90fbe43aa5ea490efe0617f4092d950b19fef10fd0a1f8d587",
-    "zh:e34fe5cc0b06f958775add40c8515e8d6e5fbf4f6379af5f0fabe664596e9bc2",
-    "zh:f90394e99659ac5147ca3680eab4baf06547a4dd015977625dbc2fb7c2d3e2c0",
+    "h1:PsddR1TQ9785SpVJPxzGrDUyySKRf9oHXEYBFhLYPZo=",
+    "zh:563167ac423b2ace4291ed9bc9f798a75f3be739d9874a8ca91498ed57eef317",
+    "zh:7288d220706aae5371b8ebe70c24de439e4a749a1feda2a2f33a2f0bde2ce6cb",
+    "zh:7635f80699c4c8884585413c869fbd595ff99af087ee67374387c771f6b68055",
+    "zh:a257db518bc5df32a5a769f17ed17c7d9d0357a2d1c5d2f7cbfa6acb4aeadaa1",
+    "zh:bb97d2fd4848a31322d8a53ece3fa940fec1fa411ccd4a8af9c1487e58172ef7",
+    "zh:cd5bef505baf4049ac79f5c328dc46674b107f410eb4134941ca5b22ec0c0fa4",
+    "zh:e692994eba32d04f5027a1139405d16ed03da7b20a083cd57ed6adaddf406153",
   ]
 }
