@@ -35,3 +35,4 @@ resource "rke_cluster" "cluster" {
     role    = ["controlplane", "worker", "etcd"]
     ssh_key = file("~/.ssh/id_rsa")
   }
+}
