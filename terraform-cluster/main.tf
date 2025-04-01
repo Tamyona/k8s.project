@@ -35,9 +35,3 @@ resource "rke_cluster" "cluster" {
     role    = ["controlplane", "worker", "etcd"]
     ssh_key = file("~/.ssh/id_rsa")
   }
-
-  upgrade_strategy {
-      drain = true
-      max_unavailable_worker = "20%"
-  }
-}
