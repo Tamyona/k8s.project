@@ -25,14 +25,19 @@ resource "rke_cluster" "cluster" {
   nodes {
     address = var.worker1_ip
     user    = "rke"
-    role    = ["controlplane", "worker", "etcd"]
+    role    = ["worker"]
     ssh_key = file("~/.ssh/id_rsa")
   }
 
   nodes {
     address = var.worker2_ip
     user    = "rke"
-    role    = ["controlplane", "worker", "etcd"]
+    role    = ["worker"]
     ssh_key = file("~/.ssh/id_rsa")
   }
+}
+
+output kube_config {
+  value = rke_cluster.cluster.kube_config_yaml
+  sensitive = true 
 }

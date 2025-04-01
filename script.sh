@@ -46,9 +46,14 @@ function generate_cluster() {
   terraform apply --auto-approve -var="master_ip=$MASTER_IP" -var="worker1_ip=$WORKER1_IP" -var="worker2_ip=$WORKER2_IP"
 }
 
+function rke_up() {
+  sudo terraform output -raw kube_config | sudo tee ~/.kube/config > /dev/null
+  kubectl get nodes
+}
 
 prep_bastion
 create_instances
 update_ips
 ansible
 generate_cluster
+rke_up
