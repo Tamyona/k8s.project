@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: tamyona/web:1.0.0  # Replace with your actual image
+          image: tamyona/tamyona/web:1.0.0  # Replace with your actual image
           ports:
             - containerPort: 3000
           env:

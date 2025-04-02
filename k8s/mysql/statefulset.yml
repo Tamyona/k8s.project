@@ -19,21 +19,21 @@ spec:
           ports:
             - containerPort: 3306
           env:
-            - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-secret
-                  key: mysql-root-password
+            # - name: MYSQL_ROOT_PASSWORD
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: mysql-secret
+            #       key: mysql-root-password
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
-                  name: mysql-secret
-                  key: mysql-user
+                  name: api-secret
+                  key: DB_USER
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mysql-secret
-                  key: mysql-password
+                  name: api-secret
+                  key: DB_PASSWORD
             - name: MYSQL_DATABASE
               value: "kaizen"
           volumeMounts:
