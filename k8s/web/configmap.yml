@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-configmap
+data:
+  PORT: "3000"
+  API_HOST: "api.svc.cluster.local"  # Reference the API service inside the cluster

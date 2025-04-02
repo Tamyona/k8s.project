@@ -51,9 +51,12 @@ function rke_up() {
   kubectl get nodes
 }
 
+
+
 prep_bastion
 create_instances
 update_ips
 ansible
 generate_cluster
+sleep 10
 rke_up

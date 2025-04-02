@@ -1,9 +1,0 @@
-[bastion]
-localhost ansible_connection=local
-
-[master]
-master ansible_host=3.148.197.161
-
-[workers]
-worker1 ansible_host=18.119.119.208
-worker2 ansible_host=13.59.244.75
