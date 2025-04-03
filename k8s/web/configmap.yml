@@ -4,4 +4,4 @@ metadata:
   name: web-configmap
 data:
   PORT: "3000"
-  API_HOST: "api.svc.cluster.local"  # Reference the API service inside the cluster
+  API_HOST: http://api-service:3001     # "api.svc.cluster.local" | Reference the API service inside the cluster

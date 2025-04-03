@@ -28,12 +28,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: api-secret
-                  key: DB_USER
+                  key: DBUSER
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: api-secret
-                  key: DB_PASSWORD
+                  key: DBPASS
             - name: MYSQL_DATABASE
               value: "kaizen"
           volumeMounts:

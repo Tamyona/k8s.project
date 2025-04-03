@@ -6,7 +6,7 @@ function prep_bastion() {
 }
 
 function create_instances() {
-  cd terraform
+  cd cluster/terraform
   terraform init
   terraform apply --auto-approve
 }
@@ -51,6 +51,9 @@ function rke_up() {
   kubectl get nodes
 }
 
+function create_local_storage() {
+  kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
+}
 
 
 prep_bastion
@@ -60,3 +63,4 @@ ansible
 generate_cluster
 sleep 10
 rke_up
+create_local_storage
