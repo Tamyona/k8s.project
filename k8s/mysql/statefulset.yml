@@ -13,17 +13,25 @@ spec:
       labels:
         app: mysql
     spec:
+      initContainers:         # double check
+      - name: init-mysql
+        image: busybox
+        command:
+        - sh
+        - -c
+        - rm -rf /var/lib/mysql/*
       containers:
         - name: mysql
           image: mysql:8.0
           ports:
             - containerPort: 3306
+              name: mysql
           env:
-            # - name: MYSQL_ROOT_PASSWORD
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: mysql-secret
-            #       key: mysql-root-password
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: api-secret
+                  key: DBPASS
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:

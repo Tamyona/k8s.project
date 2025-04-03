@@ -3,10 +3,12 @@ kind: Service
 metadata:
   name: web-service
 spec:
+  type: LoadBalancer
+  externalIPs: 
+    - 52.14.215.144
   selector:
     app: web
   ports:
     - protocol: TCP
       port: 80
       targetPort: 3000
-  type: LoadBalancer  # Use LoadBalancer for external access or ClusterIP for internal

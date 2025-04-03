@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: web
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: web
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: tamyona/tamyona/web:1.0.0  # Replace with your actual image
+          image: tamyona/web:2.0.0  # Replace with your actual image
           ports:
             - containerPort: 3000
           env:
@@ -25,25 +25,25 @@ spec:
                 configMapKeyRef:
                   name: web-config
                   key: API_HOST
-          resources:
-            requests:
-              cpu: "250m"
-              memory: "256Mi"
-            limits:
-              cpu: "500m"
-              memory: "512Mi"
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: 3000
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 3000
-            initialDelaySeconds: 10
-            periodSeconds: 15
+          # resources:
+          #   requests:
+          #     cpu: "250m"
+          #     memory: "256Mi"
+          #   limits:
+          #     cpu: "500m"
+          #     memory: "512Mi"
+          # readinessProbe:
+          #   httpGet:
+          #     path: /health
+          #     port: 3000
+          #   initialDelaySeconds: 5
+          #   periodSeconds: 10
+          # livenessProbe:
+          #   httpGet:
+          #     path: /health
+          #     port: 3000
+          #   initialDelaySeconds: 10
+          #   periodSeconds: 15
           # startupProbe:
           #   httpGet:
           #     path: /health

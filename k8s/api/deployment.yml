@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: api
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: api
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: tamyona/tamyona/api:1.0.0
+          image: tamyona/api:2.0.0
           ports:
             - containerPort: 3001
           env:
@@ -26,25 +26,25 @@ spec:
               value: "3306"
             - name: DB
               value: "kaizen"
-          resources:
-            requests:
-              cpu: "250m"
-              memory: "256Mi"
-            limits:
-              cpu: "500m"
-              memory: "512Mi"
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: 3001
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 3001
-            initialDelaySeconds: 10
-            periodSeconds: 15
+          # resources:
+          #   requests:
+          #     cpu: "250m"
+          #     memory: "256Mi"
+          #   limits:
+          #     cpu: "500m"
+          #     memory: "512Mi"
+          # readinessProbe:
+          #   httpGet:
+          #     path: /health
+          #     port: 3001
+          #   initialDelaySeconds: 5
+          #   periodSeconds: 10
+          # livenessProbe:
+          #   httpGet:
+          #     path: /health
+          #     port: 3001
+          #   initialDelaySeconds: 10
+          #   periodSeconds: 15
           # startupProbe:
           #   httpGet:
           #     path: /health
